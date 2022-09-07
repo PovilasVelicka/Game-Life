@@ -1,28 +1,33 @@
 
-const height = '300';
-const width = '300';
-const backgroundColor = '#808080';
-const cellX = 10;
-const cellY = 10;
-const canvas = document.getElementById("gameField");
-const ctx = canvas.getContext('2d');
-
 window.onload = () => {
     printGrid();
+    setEvents();
 }
 
 const printGrid = () => {
-    canvas.style.border = '1px solid black';
+    let width = _cellsCountX * _cellSize;
+    let height = _cellsCountY * _cellSize;
+    canvas.style.border = '1px solid grey';
+    ctx.fillStyle = 'grey'
     canvas.width = width;
     canvas.height = height;
 
-    for (let x = 0.5; x < width; x += cellX) {
+    for (let x = 0.5; x < width; x += _cellSize) {
         ctx.moveTo(x, 0);
         ctx.lineTo(x, width);
+        ctx.moveTo(0, x);
+        ctx.lineTo(height, x);
+        ctx.stroke();
     }
 
-    for (let y = 0.5; y < height; y += cellY) {
-        ctx.moveTo(y, 0);
-        ctx.lineTo(height, 0);
-    }
 }
+
+const setEvents = () => {
+    canvas.addEventListener('click', (event) => {
+        let x = event.clientX;
+        let y = event.clientY;
+        ctx.fillRect(Math.trunc(x), Math.trunc(y), 10, 10);
+    })
+}
+
+
