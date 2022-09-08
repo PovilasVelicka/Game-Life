@@ -22,7 +22,7 @@ function getNextGeneration() {
 
 function isCanLive(x, y) {
     const cellNeighbors = neighborsCount(x, y)
-    if (_mainGameField[x], [y]) {
+    if (_mainGameField[x][y]) {
         return (cellNeighbors === 2 || cellNeighbors === 3) ? true : false
     } else {
         return (cellNeighbors === 3) ? true : false
