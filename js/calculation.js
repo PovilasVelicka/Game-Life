@@ -6,11 +6,11 @@ function updateNextGeneration() {
             _mainGameField[x][y] = tempGen[x][y]
         }
     }
-    _currentGeneration++
+    _currentGeneration++   
 }
 
 function getNextGeneration() {
-    let tempGameField;
+    let tempGameField=[];
     for (let x = 0; x < _cellsCountX; x++) {
         tempGameField[x] = []
         for (let y = 0; y < _cellsCountY; y++) {
@@ -22,7 +22,7 @@ function getNextGeneration() {
 
 function isCanLive(x, y) {
     const cellNeighbors = neighborsCount(x, y)
-    if (_mainGameField(x, y)) {
+    if (_mainGameField[x], [y]) {
         return (cellNeighbors === 2 || cellNeighbors === 3) ? true : false
     } else {
         return (cellNeighbors === 3) ? true : false
