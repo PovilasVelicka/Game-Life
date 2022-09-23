@@ -1,16 +1,24 @@
 
 function updateNextGeneration() {
-    const tempGen = getNextGeneration();
+    let oldGeneration = [];
+    let tempGen = getNextGeneration();
     for (let x = 0; x < _cellsCountX; x++) {
+        oldGeneration[x] = [];
         for (let y = 0; y < _cellsCountY; y++) {
-            _mainGameField[x][y] = tempGen[x][y]
+            oldGeneration[x][y] = _mainGameField[x][y]
+            if (_mainGameField[x][y] !== tempGen[x][y]) {
+                _redrawCells.push({ X: x, Y: y })
+                _mainGameField[x][y] = tempGen[x][y]
+            }
         }
     }
-    _currentGeneration++   
+    _currentGeneration++
+    _gameOwer = isGameOwer(oldGeneration, getNextGeneration());
+
 }
 
 function getNextGeneration() {
-    let tempGameField=[];
+    let tempGameField = [];
     for (let x = 0; x < _cellsCountX; x++) {
         tempGameField[x] = []
         for (let y = 0; y < _cellsCountY; y++) {
@@ -52,3 +60,15 @@ function maxVal(current, axisKey) {
     return current + 1
 }
 
+function isGameOwer(currGen, nextGen) {
+    let gameOwer = true;
+    let activeCellCount = 0;
+    for (let x = 0; x < _cellsCountX; x++) {
+        for (let y = 0; y < _cellsCountY; y++) {
+            if (_mainGameField[x][y]) activeCellCount++;
+            if (currGen[x][y] !== nextGen[x][y]) gameOwer = false;
+        }
+    }
+    if (activeCellCount === 0) gameOwer = true;
+    return gameOwer;
+}
